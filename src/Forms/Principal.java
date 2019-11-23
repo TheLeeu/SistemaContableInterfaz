@@ -54,12 +54,15 @@ public class Principal extends javax.swing.JFrame {
 
         if (l.getAnterior() == 0) {
             Conexion c = new Conexion();
-            ResultSet rs = c.Consulta("SELECT * FROM `librodiario` ", c.getConexion());
+            ResultSet rs = c.Consulta("SELECT n_libro FROM `librodiario` ", c.getConexion());
             try {
                 while (rs.next()) {
+                    
                     cuantosLibrosHay++;
                     elLibro = Integer.parseInt(rs.getString("n_libro"));
                     if (elLibro < menor) {
+                        menor = elLibro;
+                    } else if (menor == 0) {
                         menor = elLibro;
                     }
                 }
@@ -77,7 +80,7 @@ public class Principal extends javax.swing.JFrame {
         } else if (l.getAnterior() >= 1) {
             jSpinner1.setValue(l.getAnterior());
         }
-
+        System.out.println("el numero menor es: "+ menor);
         /*------------Todo este codigo ira en una funcion-------------*/
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnCerrar, "src/Imagenes/multiply.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnMinimizar, "src/Imagenes/subtraction.png");
@@ -1117,6 +1120,10 @@ public class Principal extends javax.swing.JFrame {
         try {
             if (rs.next()) {
                 lblPeriodo.setText(rs.getString("Periodo"));
+                AbrirNav7.setText("Libro Mayor " + rs.getString("Periodo"));
+                AbrirNav9.setText("Balance de Comprobacion " + rs.getString("Periodo"));
+                AbrirNav12.setText("Estado de Resultados " + rs.getString("Periodo"));
+                lblBG.setText("Balance General " + rs.getString("Periodo"));
             }
             rs.close();
             con.close();

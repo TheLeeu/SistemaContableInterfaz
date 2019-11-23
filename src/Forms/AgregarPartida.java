@@ -8,8 +8,10 @@ package Forms;
 import Modelo.Conexion;
 import Modelo.Libro;
 import Modelo.Plantilla;
+import com.sun.glass.events.KeyEvent;
 import interfas.Animacion;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -19,6 +21,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -78,7 +81,7 @@ public class AgregarPartida extends javax.swing.JFrame {
                 System.out.println(ex);
                 Logger.getLogger(AgregarPartida.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             Encabezado = true;
         } else {
             System.out.println("no se usa plantilla");
@@ -234,6 +237,9 @@ public class AgregarPartida extends javax.swing.JFrame {
         PanelElegirCuenta.add(cbxLista, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 170, 30));
 
         jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField3KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField3KeyTyped(evt);
             }
@@ -485,60 +491,6 @@ public class AgregarPartida extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cbxListaItemStateChanged
 
-    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
-
-        PanelElegirCuenta.setLocation(320, 0);
-
-        char validar = evt.getKeyChar();//obtiene el caracter de la tecla que presiona el usuario
-
-        if (Character.isLetter(validar)) {
-            cargarLista("SELECT * FROM `cuenta` WHERE `nombre_cuenta` LIKE '" + jTextField3.getText() + "%';");
-            PanelElegirCuenta.setLocation(320, 0);
-            cbxLista.setPopupVisible(true);
-        } else {
-            cargarLista("SELECT * FROM `cuenta` WHERE `codigo` = '" + jTextField3.getText() + "';");
-            PanelElegirCuenta.setLocation(320, 0);
-            cbxLista.setPopupVisible(true);
-        }
-
-        if (jTextField3.getText().toString().isEmpty()) {
-            cargarLista("SELECT * FROM `cuenta`;");
-            PanelElegirCuenta.setLocation(320, 0);
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("Deudor") || jTextField3.getText().toString().equals("Acreedor")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `tipo_saldo` = '" + jTextField3.getText().toString() + "'");
-            PanelElegirCuenta.setLocation(320, 0);
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("ACTIVO") || jTextField3.getText().toString().equals("Activo") || jTextField3.getText().toString().equals("activo")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '1%'");
-            PanelElegirCuenta.setLocation(320, 0);
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("PASIVO") || jTextField3.getText().toString().equals("Pasivo") || jTextField3.getText().toString().equals("pasivo")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '2%'");
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("CAPITAL") || jTextField3.getText().toString().equals("Capital") || jTextField3.getText().toString().equals("capital")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '3%'");
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("INGRESOS") || jTextField3.getText().toString().equals("Ingresos") || jTextField3.getText().toString().equals("ingresos")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '5%'");
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("COSTOS") || jTextField3.getText().toString().equals("Costos") || jTextField3.getText().toString().equals("costos")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '41%'");
-            cbxLista.setPopupVisible(true);
-        }
-        if (jTextField3.getText().toString().equals("GASTOS") || jTextField3.getText().toString().equals("Gastos") || jTextField3.getText().toString().equals("gastos")) {
-            cargarLista("SELECT `id_cuenta`, `codigo`, `Nivel`, `nombre_cuenta`, `tipo_saldo` FROM `cuenta` WHERE `codigo` LIKE '42%'");
-            cbxLista.setPopupVisible(true);
-        }
-
-    }//GEN-LAST:event_jTextField3KeyTyped
-
     private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
         SoloNumeros(evt);//valida que solo se ingresen numeros
     }//GEN-LAST:event_txtSaldoKeyTyped
@@ -564,6 +516,7 @@ public class AgregarPartida extends javax.swing.JFrame {
 
         preview();//Funcion que permite una vista previa de la partida, se llama cada vez que se agrega una cuenta
         sumar();   //Hace la sumatoria del debe y haber, para ver si cuadra
+
 
     }//GEN-LAST:event_btnAgregarCuentaActionPerformed
 
@@ -674,6 +627,88 @@ public class AgregarPartida extends javax.swing.JFrame {
         }
 // TODO add your handling code here:
     }//GEN-LAST:event_btnModificarMouseClicked
+//##########################################################################################################################
+
+    int letras = 0;
+
+    private void jTextField3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyPressed
+
+        if (evt.getKeyCode() == evt.VK_BACK_SPACE) {
+
+            if (letras > 0) {
+                letras--;
+            }
+
+        } else if (evt.getKeyCode() == evt.VK_A || evt.getKeyCode() == evt.VK_B || evt.getKeyCode() == evt.VK_C || evt.getKeyCode() == evt.VK_D || evt.getKeyCode() == evt.VK_E || evt.getKeyCode() == evt.VK_F || evt.getKeyCode() == evt.VK_G || evt.getKeyCode() == evt.VK_H || evt.getKeyCode() == evt.VK_I || evt.getKeyCode() == evt.VK_J || evt.getKeyCode() == evt.VK_K || evt.getKeyCode() == evt.VK_L || evt.getKeyCode() == evt.VK_M || evt.getKeyCode() == evt.VK_N || evt.getKeyCode() == evt.VK_O || evt.getKeyCode() == evt.VK_P || evt.getKeyCode() == evt.VK_Q || evt.getKeyCode() == evt.VK_R || evt.getKeyCode() == evt.VK_S || evt.getKeyCode() == evt.VK_T || evt.getKeyCode() == evt.VK_U || evt.getKeyCode() == evt.VK_V || evt.getKeyCode() == evt.VK_W || evt.getKeyCode() == evt.VK_X || evt.getKeyCode() == evt.VK_Y || evt.getKeyCode() == evt.VK_Z) {
+            letras++;
+
+            //System.out.println(letras);
+        }
+
+
+    }//GEN-LAST:event_jTextField3KeyPressed
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        String item = "";
+        String busca = "";
+        String fin = "";
+        char it;
+        char bu;
+        boolean encontro = false;
+        //recorremos los items
+        for (int i = 0; i < lista.length; i++) {
+            //recorremos el total de letras para la busque
+
+            //hacemos que todas las letras sean minusculas para comparar mejores resultados
+            item = lista[i].toLowerCase();
+            busca = jTextField3.getText().toString().toLowerCase();
+
+            if (letras < 10) {
+                if (item.substring(0, letras).startsWith(busca)) {
+                    //System.out.println(lista[i] + " = " + jTextField3.getText().toString());
+                    cbxLista.setSelectedIndex(i);
+                    encontro = true;
+                    break;
+                } else {
+                    encontro = false;
+                    cbxLista.setSelectedIndex(0);
+                }
+            }
+
+        }
+        int z = busca.length();
+        String[] lista2 = new String[292];
+        if (!encontro) {
+
+            String temp = "";
+            lista2[0] = lista[0];
+            for (int i = 1; i < lista.length; i++) {
+                temp = "";
+                for (int j = 0; j < z; j++) {
+                    if (lista[i].length() < z) {
+                        temp = lista[i];
+                    } else {
+                        temp += String.valueOf(lista[i].charAt(j));
+                    }
+
+                }
+                lista2[i] = temp.toLowerCase();
+            }
+
+            for (int i = 0; i < lista2.length; i++) {
+                //System.out.println(lista2[i] + " = "+ busca);
+                if (lista2[i].equals(busca)) {
+                    cbxLista.setSelectedIndex(i);
+                    break;
+                } else {
+                    cbxLista.setSelectedIndex(0);
+
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_jTextField3KeyTyped
 
     /**
      * @param args the command line arguments
@@ -711,10 +746,13 @@ public class AgregarPartida extends javax.swing.JFrame {
             }
         });
     }
+    String[] lista = new String[292];
 
     public void cargarLista(String query) {
+        DefaultComboBoxModel cbxModelo = (DefaultComboBoxModel) cbxLista.getModel();
 
         int nivel;
+        int i = 1;
         int otro_nivel;
         try {
             //Nueva conexion
@@ -726,21 +764,32 @@ public class AgregarPartida extends javax.swing.JFrame {
             cbxLista.removeAllItems();
 
             //mientras halla otro dato en rs, añadimos a la combo box un resultado
+            lista[0] = "-SELECCIONE CUENTA-";
             while (rs.next()) {
                 nivel = Integer.parseInt(rs.getString(3));
                 if (nivel > 2) {
 
-                    cbxLista.addItem(rs.getString(4) + rs.getString(2));
+                    //cbxLista.addItem(rs.getString(4) + rs.getString(2));
+                    //cbxModelo.addElement(rs.getString(4) + rs.getString(2));
+                    lista[i] = rs.getString(4) + rs.getString(2);
+                    i++;
+
                 }
             }
-            //cerramos la conexion cerrando el resultado obtenido
+            //agregamos los items pero solo si es la primera vez que se ha lanzado
+            for (int q = 0; q < lista.length; q++) {
 
+                cbxModelo.addElement(lista[q]);
+            }
+
+            //cerramos la conexion cerrando el resultado obtenido
             rs.close();
             conecta.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(AgregarPartida.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public void sumar() {
@@ -801,7 +850,7 @@ public class AgregarPartida extends javax.swing.JFrame {
         java.sql.Date fecha = new java.sql.Date(d);
         String Fecha = fecha.toString();
         plan.setFecha(fecha.toString());
-        if ((!txtNPartida.getText().toString().isEmpty()) && (!Fecha.toString().isEmpty()) && (!txtSaldo.getText().toString().isEmpty()) && (DH_seleccionado) && (!txtConcepto.getText().toString().isEmpty())) {
+        if ((!txtNPartida.getText().toString().isEmpty()) && (!Fecha.toString().isEmpty()) && (!txtSaldo.getText().toString().isEmpty()) && (DH_seleccionado) && (!txtConcepto.getText().toString().isEmpty()) && cbxLista.getSelectedItem() != "-SELECCIONE CUENTA-") {
             if (Double.parseDouble(txtSaldo.getText().toString()) > 0.0) {//saldo mayor a 0.0
                 DecimalFormat formato = new DecimalFormat("#.00");
                 DefaultTableModel _Modelo = (DefaultTableModel) tablePartidaPreview.getModel();
@@ -1013,6 +1062,13 @@ public class AgregarPartida extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Saldo debe ser mayor a 0");
             }
+
+            //reiniciar valores del saldo y las cuentas
+            txtSaldo.setText(null);
+            jTextField3.setText(null);
+            btn_debe.setSelected(true);
+            btnExento.setSelected(true);
+
         } else {
             JOptionPane.showMessageDialog(null, "TODOS LOS CAMPOS SON REQUERIDOS");
         }
@@ -1137,7 +1193,7 @@ public class AgregarPartida extends javax.swing.JFrame {
             }
             //vamos a obtener el ultimo registro de una partida para meter las cuentas ahi
             Conexion con = new Conexion();
-            ResultSet rs1 = con.Consulta("SELECT id_partida FROM `partida` WHERE n_libro = '"+jSpinner1.getValue().toString()+"' ORDER BY `id_partida` DESC LIMIT 1 ", con.getConexion());
+            ResultSet rs1 = con.Consulta("SELECT id_partida FROM `partida` WHERE n_libro = '" + jSpinner1.getValue().toString() + "' ORDER BY `id_partida` DESC LIMIT 1 ", con.getConexion());
             String a = "";
             if (rs1.next()) {
                 a = rs1.getString("id_partida");
