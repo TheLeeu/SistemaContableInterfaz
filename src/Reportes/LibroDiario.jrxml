@@ -109,12 +109,12 @@
 	<pageFooter>
 		<band height="22" splitType="Stretch">
 			<textField>
-				<reportElement x="200" y="0" width="80" height="20" uuid="58b7cf09-f31d-4335-91f2-b93df0192cf7"/>
+				<reportElement x="0" y="2" width="274" height="20" uuid="58b7cf09-f31d-4335-91f2-b93df0192cf7"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="280" y="0" width="40" height="20" uuid="9bbe1e09-a61a-4a0f-a865-a07c6906504c"/>
+				<reportElement x="274" y="2" width="281" height="20" uuid="9bbe1e09-a61a-4a0f-a865-a07c6906504c"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>

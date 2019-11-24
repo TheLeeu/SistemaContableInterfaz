@@ -7,7 +7,10 @@ package Forms;
 
 import Modelo.Conexion;
 import Modelo.Libro;
+import Modelo.ReporteBalanceGeneral;
+import Modelo.ReporteComprobacion;
 import Modelo.ReporteDiario;
+import Modelo.ReporteEstadoResultados;
 import Modelo.ReporteMayor;
 import interfas.Animacion;
 import java.io.FileInputStream;
@@ -186,12 +189,14 @@ public class Principal extends javax.swing.JFrame {
         AbrirNav11 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         PanelEstadoResultados = new javax.swing.JPanel();
         AbrirNav12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         AbrirNav13 = new javax.swing.JLabel();
         btnActualizarEstRes = new javax.swing.JLabel();
+        btnReporteResultado = new javax.swing.JButton();
         PanelBalanceGeneral = new javax.swing.JPanel();
         lblBG = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -206,6 +211,7 @@ public class Principal extends javax.swing.JFrame {
         jTextField9 = new javax.swing.JTextField();
         txtBG2 = new javax.swing.JTextField();
         txtBG3 = new javax.swing.JTextField();
+        btnReporteGeneral = new javax.swing.JButton();
         PanelEncabezado = new javax.swing.JPanel();
         btnCerrar = new javax.swing.JLabel();
         btnMinimizar = new javax.swing.JLabel();
@@ -580,6 +586,14 @@ public class Principal extends javax.swing.JFrame {
         jTextField3.setBackground(new java.awt.Color(241, 237, 225));
         PanelBalanceComprobacion.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 160, 20));
 
+        jButton1.setText("Reportes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        PanelBalanceComprobacion.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
+
         getContentPane().add(PanelBalanceComprobacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 50, -1, 530));
 
         PanelEstadoResultados.setBackground(new java.awt.Color(198, 231, 246));
@@ -620,6 +634,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         PanelEstadoResultados.add(btnActualizarEstRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 50, 50));
+
+        btnReporteResultado.setText("Reporte");
+        btnReporteResultado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteResultadoActionPerformed(evt);
+            }
+        });
+        PanelEstadoResultados.add(btnReporteResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
 
         getContentPane().add(PanelEstadoResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(2760, 50, -1, 530));
 
@@ -697,6 +719,14 @@ public class Principal extends javax.swing.JFrame {
 
         txtBG3.setBackground(new java.awt.Color(241, 237, 225));
         PanelBalanceGeneral.add(txtBG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 70, 20));
+
+        btnReporteGeneral.setText("Reporte");
+        btnReporteGeneral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteGeneralActionPerformed(evt);
+            }
+        });
+        PanelBalanceGeneral.add(btnReporteGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 100, -1, -1));
 
         getContentPane().add(PanelBalanceGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(3680, 50, -1, 530));
 
@@ -1150,6 +1180,111 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnReporteMayorActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        List lista = new ArrayList();
+        ReporteComprobacion rc = null;
+        for (int i = 0; i < jTable2.getRowCount() + 1; i++) {
+            if (i < jTable2.getRowCount()) {
+                rc = new ReporteComprobacion(jTable2.getValueAt(i, 0).toString(), jTable2.getValueAt(i, 1).toString(), "$ " + jTable2.getValueAt(i, 2).toString(), "$ " + jTable2.getValueAt(i, 3).toString());
+            } else {
+                rc = new ReporteComprobacion("", "TOTALES", "$ " + jTextField3.getText().toString(), "$ " + jTextField4.getText().toString());
+
+            }
+            lista.add(rc);
+        }
+
+        JasperReport reporte = null;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceComprobacion.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnReporteResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteResultadoActionPerformed
+        List lista = new ArrayList();
+        ReporteEstadoResultados re = null;
+        for (int i = 0; i < jTable3.getRowCount(); i++) {
+
+            re = new ReporteEstadoResultados(jTable3.getValueAt(i, 0).toString(), "$ " + jTable3.getValueAt(i, 1).toString());
+
+            lista.add(re);
+        }
+
+        JasperReport reporte = null;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/EstadoResultados.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteResultadoActionPerformed
+
+    private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
+        List lista = new ArrayList();
+        ReporteBalanceGeneral rb = null;
+        //veremos que tabla tiene mas filas
+        if (jTable4.getRowCount() < jTable5.getRowCount()) {
+            for (int i = 0; i < jTable5.getRowCount() + 1; i++) {
+                if (i < jTable4.getRowCount()) {
+                    rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), jTable5.getValueAt(i, 0).toString(), jTable5.getValueAt(i, 1).toString());
+                } else if (i < jTable5.getRowCount()) {
+                    System.out.println(i);
+                    rb = new ReporteBalanceGeneral("", "", jTable5.getValueAt(i, 0).toString(), jTable5.getValueAt(i, 1).toString());
+
+                } else {
+                    rb = new ReporteBalanceGeneral("TOTAL", jTextField8.getText().toString().toString(), "TOTAL", jTextField9.getText().toString());
+
+                }
+                lista.add(rb);
+            }
+        } else if (jTable4.getRowCount() > jTable5.getRowCount()) {
+            for (int i = 0; i < jTable4.getRowCount(); i++) {
+                if (i < jTable5.getRowCount()) {
+                    rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), jTable5.getValueAt(i, 0).toString(), jTable5.getValueAt(i, 1).toString());
+                }  else if(i < jTable4.getRowCount()){
+                    rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), "", "");
+
+                }else {
+                    rb = new ReporteBalanceGeneral("TOTAL", jTextField8.getText().toString().toString(), "TOTAL", jTextField9.getText().toString());
+
+                }
+                lista.add(rb);
+            }
+        } else if (jTable4.getRowCount() == jTable5.getRowCount()) {
+            for (int i = 0; i < jTable4.getRowCount() + 1; i++) {
+                if (i < jTable4.getRowCount() + 1) {
+                    rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), jTable5.getValueAt(i, 0).toString(), jTable5.getValueAt(i, 1).toString());
+                } else {
+                    rb = new ReporteBalanceGeneral("TOTAL", jTextField8.getText().toString().toString(), "TOTAL", jTextField9.getText().toString());
+
+                }
+                lista.add(rb);
+            }
+        }
+
+        JasperReport reporte = null;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceGenera.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
     /*fin botones de chepe*/
     public void Retroceder() {
@@ -1812,16 +1947,18 @@ public class Principal extends javax.swing.JFrame {
         }
         modelo.addRow(new Object[]{"Gastos de Operacion", formato.format(gastos)});
         modelo.addRow(new Object[]{"Utilidad de Operacion", formato.format((ingresos - costos) - gastos)});
-
+        
+        
+        
         modelo.addRow(new Object[]{"Reserva Legal", formato.format(((ingresos - costos) - gastos) * 0.07)});
         modelo.addRow(new Object[]{"Utilidad Antes de Impuestos", formato.format(((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07)});
-
+        
         if (ingresos > 150000) {
             modelo.addRow(new Object[]{"Impuestos por Pagar", formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.3)});
-            impuestos = (((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.3;
+            impuestos = Double.parseDouble(formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.3));
         } else if (ingresos < 150000) {
             modelo.addRow(new Object[]{"Impuestos por Pagar", formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.25)});
-            impuestos = (((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.25;
+            impuestos = Double.parseDouble(formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.25));
         }
 
         modelo.addRow(new Object[]{"Utilidad Neta", formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) - impuestos)});
@@ -1865,7 +2002,7 @@ public class Principal extends javax.swing.JFrame {
             while (rs.next()) {
                 if (activos.getRowCount() == 1) {
                     if (Double.parseDouble(rs.getString("Haber")) <= 0) {
-                        activos.addRow(new Object[]{rs.getString("nombre_cuenta"), rs.getString("Debe")});
+                        activos.addRow(new Object[]{rs.getString("nombre_cuenta"), formato.format(Double.parseDouble(rs.getString("Debe")))});
 
                     } else if (Double.parseDouble(rs.getString("Haber")) > 0) {
                         activos.addRow(new Object[]{rs.getString("nombre_cuenta"), formato.format(0 - Double.parseDouble(rs.getString("Haber")))});
@@ -1875,7 +2012,7 @@ public class Principal extends javax.swing.JFrame {
                     //vemos si la cuenta no esta ingresada
                     for (int i = 0; i < activos.getRowCount(); i++) {
                         if (activos.getValueAt(i, 0).toString().equals(rs.getString("nombre_cuenta"))) {
-                            saldo = Double.parseDouble(activos.getValueAt(i, 1).toString());
+                            saldo = Double.parseDouble(formato.format(Double.parseDouble(activos.getValueAt(i, 1).toString())));
 
                             if (Double.parseDouble(rs.getString("Haber")) <= 0) {
                                 activos.setValueAt(formato.format(saldo += Double.parseDouble(rs.getString("Debe"))), i, 1);
@@ -1895,7 +2032,7 @@ public class Principal extends javax.swing.JFrame {
 
                     if (!ya) {
                         if (Double.parseDouble(rs.getString("Haber")) <= 0) {
-                            activos.addRow(new Object[]{rs.getString("nombre_cuenta"), rs.getString("Debe")});
+                            activos.addRow(new Object[]{rs.getString("nombre_cuenta"), formato.format(Double.parseDouble(rs.getString("Debe")))});
 
                         } else if (Double.parseDouble(rs.getString("Haber")) > 0) {
                             activos.addRow(new Object[]{rs.getString("nombre_cuenta"), formato.format(0 - Double.parseDouble(rs.getString("Haber")))});
@@ -1912,7 +2049,7 @@ public class Principal extends javax.swing.JFrame {
         Double sumActivos = 0.0;
         //sumamos los activos
         for (int i = 0; i < activos.getRowCount(); i++) {
-            sumActivos += Double.parseDouble(activos.getValueAt(i, 1).toString());
+            sumActivos += Double.parseDouble(formato.format(Double.parseDouble(activos.getValueAt(i, 1).toString())));
         }
         jTextField8.setText(formato.format(sumActivos));
         //activos.addRow(new Object[]{"TOTAL ", formato.format(sumActivos)});
@@ -1934,7 +2071,7 @@ public class Principal extends javax.swing.JFrame {
                     for (int i = 0; i < pasivos.getRowCount(); i++) {
                         if (pasivos.getValueAt(i, 0).toString().equals(rs.getString("nombre_cuenta"))) {
                             //System.out.println(pasivos.getValueAt(i, 0).toString()+ " = "+rs.getString("nombre_cuenta") );
-                            saldo = Double.parseDouble(pasivos.getValueAt(i, 1).toString());
+                            saldo = Double.parseDouble(formato.format(Double.parseDouble(pasivos.getValueAt(i, 1).toString())));
 
                             if (Double.parseDouble(rs.getString("Debe")) <= 0) {
                                 pasivos.setValueAt(formato.format(saldo += Double.parseDouble(rs.getString("Haber"))), i, 1);
@@ -1988,13 +2125,13 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        pasivos.addRow(new Object[]{"UTILIDAD NETA ", txtBG1.getText()});
-        pasivos.addRow(new Object[]{"RESERVA LEGAL ", txtBG3.getText()});
+        pasivos.addRow(new Object[]{"UTILIDAD NETA ", formato.format(Double.parseDouble(txtBG1.getText()))});
+        pasivos.addRow(new Object[]{"RESERVA LEGAL ", formato.format(Double.parseDouble(txtBG3.getText()))});
 
         Double sumPasivos = 0.0;
         //sumamos los pasivos
         for (int i = 0; i < pasivos.getRowCount(); i++) {
-            sumPasivos += Double.parseDouble(pasivos.getValueAt(i, 1).toString());
+            sumPasivos += Double.parseDouble(formato.format(Double.parseDouble(pasivos.getValueAt(i, 1).toString())));
         }
         jTextField9.setText(formato.format(sumPasivos));
         //pasivos.addRow(new Object[]{"TOTAL ", formato.format(sumPasivos)});
@@ -2037,9 +2174,12 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel btnModificar;
+    private javax.swing.JButton btnReporteGeneral;
     private javax.swing.JButton btnReporteLibroDiario;
     private javax.swing.JButton btnReporteMayor;
+    private javax.swing.JButton btnReporteResultado;
     private javax.swing.JLabel btnSiguiente;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
