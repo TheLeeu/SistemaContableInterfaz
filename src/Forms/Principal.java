@@ -1142,9 +1142,12 @@ public class Principal extends javax.swing.JFrame {
 
         JasperReport reporte = null;
 
+        Map parametro = new HashMap();
+        parametro.put("periodo", lblPeriodo.getText().toString());
+        
         try {
             reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroDiario.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
@@ -1169,10 +1172,11 @@ public class Principal extends javax.swing.JFrame {
         }
 
         JasperReport reporte = null;
-
+        Map parametro = new HashMap();
+        parametro.put("periodo", lblPeriodo.getText().toString());
         try {
             reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroMayor.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
@@ -1195,10 +1199,11 @@ public class Principal extends javax.swing.JFrame {
         }
 
         JasperReport reporte = null;
-
+        Map parametro = new HashMap();
+        parametro.put("periodo", lblPeriodo.getText().toString());
         try {
             reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceComprobacion.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
@@ -1218,10 +1223,11 @@ public class Principal extends javax.swing.JFrame {
         }
 
         JasperReport reporte = null;
-
+        Map parametro = new HashMap();
+        parametro.put("periodo", lblPeriodo.getText().toString());
         try {
             reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/EstadoResultados.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);
@@ -1274,10 +1280,11 @@ public class Principal extends javax.swing.JFrame {
         }
 
         JasperReport reporte = null;
-
+        Map parametro = new HashMap();
+        parametro.put("parametro", lblPeriodo.getText().toString());
         try {
             reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceGenera.jasper"));
-            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             view.setVisible(true);

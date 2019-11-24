@@ -1,29 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="95ee82f1-98a4-4de0-9e88-2a6d88e2b19a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="parametro" class="java.lang.String"/>
+	<field name="activo" class="java.lang.String"/>
+	<field name="saldo" class="java.lang.String"/>
+	<field name="pasivo" class="java.lang.String"/>
+	<field name="saldo1" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="73" height="79" uuid="b2936e3d-e62d-4155-be40-c8c22262e171"/>
+				<imageExpression><![CDATA["C:\\Users\\Antonio Aranda\\Downloads\\WhatsApp Image 2019-10-17 at 18.06.17.jpeg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="73" y="0" width="482" height="33" uuid="defea42a-142c-4dd0-a343-b71f94a7ed36"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGRO FERRETERIA SAN FRANCISCO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="73" y="33" width="482" height="33" uuid="6b5e1302-152d-4db1-b205-1ecc45668fdd"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P!{parametro}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="555" height="33" uuid="a600b1ee-084d-41c4-a891-d9eb6135009e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE GENERAL]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="0" width="148" height="20" uuid="371ab406-cd2f-4950-82be-6e9d7f943922"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="0" width="100" height="20" uuid="0a04f580-88c5-480f-bea1-0ca5e0052055"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="0" width="100" height="20" uuid="5c2b2d49-df73-4487-9cb3-4f97e6a4e5e9"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="0" width="147" height="20" uuid="9ed147e8-2221-4bf2-8338-e887bfca061f"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pasivo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="278" y="0" width="147" height="20" uuid="71c3c0a3-0207-436b-9536-5daebb59144a"/>
+				<textFieldExpression><![CDATA[$F{pasivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="31" y="0" width="147" height="20" uuid="4b3a29bf-cc33-457c-9dd0-51c0b3363375"/>
+				<textFieldExpression><![CDATA[$F{activo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="0" width="100" height="20" uuid="7ff2bb30-7b1c-4fb1-82ce-212d43455054"/>
+				<textFieldExpression><![CDATA[$F{saldo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="100" height="20" uuid="c8fdc0fb-d305-4d41-94b7-5357670b06b4"/>
+				<textFieldExpression><![CDATA[$F{saldo1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="206" y="1" width="80" height="20" uuid="c38240c9-6a1b-445b-b0a7-65e81d2b4d4d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="286" y="1" width="40" height="20" uuid="945dc3b3-757f-4a37-b310-d6129f85f144"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
 </jasperReport>

@@ -3,6 +3,7 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
+	<parameter name="periodo" class="java.lang.String"/>
 	<field name="fecha" class="java.lang.String"/>
 	<field name="codigo" class="java.lang.String"/>
 	<field name="cuenta" class="java.lang.String"/>
@@ -12,29 +13,37 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="80" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="73" height="79" uuid="628ad83c-c569-4ae7-bc38-947234446f6e"/>
 				<imageExpression><![CDATA["C:\\Users\\Antonio Aranda\\Downloads\\WhatsApp Image 2019-10-17 at 18.06.17.jpeg"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement x="73" y="0" width="482" height="20" uuid="081ab338-4d0a-4a53-a1bf-ae3f614811c9"/>
+				<reportElement x="73" y="0" width="482" height="33" uuid="081ab338-4d0a-4a53-a1bf-ae3f614811c9"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AGRO FERRETERIA SAN FRANCISCO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="73" y="33" width="482" height="33" uuid="376ccf03-022f-458f-b80c-24939a95c97a"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[FERRETERIA TAL]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P!{periodo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="23" splitType="Stretch">
 			<staticText>
-				<reportElement x="73" y="20" width="482" height="20" uuid="d0972335-4b2b-44c4-994e-8926d9a76534"/>
+				<reportElement x="0" y="0" width="555" height="21" uuid="d0972335-4b2b-44c4-994e-8926d9a76534"/>
 				<textElement textAlignment="Center">
-					<font size="14" isBold="true"/>
+					<font size="16" isBold="true"/>
 				</textElement>
 				<text><![CDATA[LIBRO DIARIO]]></text>
 			</staticText>
 		</band>
-	</title>
-	<pageHeader>
-		<band height="36" splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
 		<band height="22" splitType="Stretch">

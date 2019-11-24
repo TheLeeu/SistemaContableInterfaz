@@ -1,29 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="566d7276-df48-4fc6-bdd9-61c8c9fd95e5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="debe" class="java.lang.String"/>
+	<field name="haber" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="35" uuid="847f8066-e250-4eac-8211-dae857227709"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BALANCE DE COMPROBACION]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="c317626f-b844-408d-96ee-a050fd5de743"/>
+				<text><![CDATA[codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="100" height="20" uuid="5519caa1-e768-4df7-a560-0a5c53512a74"/>
+				<text><![CDATA[cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="2" width="100" height="20" uuid="768e40f4-7a66-4bef-8c2b-6eb448c079d0"/>
+				<text><![CDATA[debe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="2" width="100" height="20" uuid="e31d65b7-ec42-4a7d-9a41-7c4c84cf0535"/>
+				<text><![CDATA[haber]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="100" height="20" uuid="3270269d-4c67-4334-84b6-6c94c2b9c9ee"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="1" width="100" height="20" uuid="29bba18a-0fc7-45d7-a46d-a0dc701a800e"/>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="1" width="100" height="20" uuid="1d6b9601-db3e-45fe-92ad-ea91cb9a65b8"/>
+				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="0" width="100" height="20" uuid="99faf3b6-a652-44be-b9c4-662490fca507"/>
+				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="180" y="0" width="80" height="20" uuid="9920d58f-6140-4fa2-9aa5-6dd736bdad07"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="260" y="0" width="40" height="20" uuid="0f367ceb-9f1d-41c8-8229-12a23a47cf32"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
 </jasperReport>

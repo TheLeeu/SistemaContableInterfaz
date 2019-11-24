@@ -8,6 +8,7 @@ package Forms;
 import Modelo.Conexion;
 import Modelo.Libro;
 import Modelo.Plantilla;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -41,8 +42,11 @@ public class NuevoLibro extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtPeriodo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,22 +68,20 @@ public class NuevoLibro extends javax.swing.JFrame {
 
         jLabel2.setText("Ingresa el periodo del libro diario");
 
+        jLabel3.setText("DEL");
+
+        jDateChooser1.setDateFormatString("dd-MM-yyyy");
+
+        jLabel4.setText("AL");
+
+        jDateChooser2.setDateFormatString("dd-MM-yyyy");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtPeriodo))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 41, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(37, 37, 37))
             .addGroup(layout.createSequentialGroup()
@@ -88,6 +90,21 @@ public class NuevoLibro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCancelar)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,9 +113,13 @@ public class NuevoLibro extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(25, 25, 25)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnCancelar))
@@ -117,9 +138,9 @@ public class NuevoLibro extends javax.swing.JFrame {
 
         Conexion c = new Conexion();
         ResultSet rs = c.Consulta("SELECT * FROM `librodiario` ", c.getConexion());
-        
+
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 System.out.println(rs.getString("n_libro"));
                 l.setAnterior(Integer.parseInt(rs.getString("n_libro")));
                 hay = true;
@@ -129,12 +150,11 @@ public class NuevoLibro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(NuevoLibro.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(!hay){
+
+        if (!hay) {
             System.out.println("cerrando todo");
             System.exit(0);
         }
-        
 
         Principal p = new Principal();
         p.setVisible(true);
@@ -142,33 +162,126 @@ public class NuevoLibro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int ultimo = 1;
-        if (!txtPeriodo.getText().isEmpty()) {
-            Conexion c = new Conexion();
-            ResultSet rs = c.Consulta("SELECT n_libro FROM `librodiario` ORDER BY `n_libro` DESC LIMIT 1 ", c.getConexion());
-            try {
-                if (rs.next()) {
-                    ultimo = Integer.parseInt(rs.getString("n_libro")) + 1;
-                } else {
-                    ultimo = 1;
-                }
-                rs.close();
-                c.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NuevoLibro.class.getName()).log(Level.SEVERE, null, ex);
+        if (jDateChooser1.getDate() != null && jDateChooser2.getDate() != null) {
+            //primer fecha
+            java.util.Date date = jDateChooser1.getDate();
+
+            long d = date.getTime();
+            java.sql.Date fecha = new Date(d);
+            
+            //pasaremos el mes a letras
+            String anio = "";
+            anio += String.valueOf(fecha).charAt(0);
+            anio += String.valueOf(fecha).charAt(1);
+            anio += String.valueOf(fecha).charAt(2);
+            anio += String.valueOf(fecha).charAt(3);
+            String mes = "";
+            mes += String.valueOf(fecha).charAt(5);
+            mes += String.valueOf(fecha).charAt(6);
+            String dia = "";
+            dia += String.valueOf(fecha).charAt(8);
+            dia += String.valueOf(fecha).charAt(9);
+            if(mes.equals("01")){
+                mes = "Enero";
+            }else if(mes.equals("02")){
+                mes = "Febrero";
+            }else if(mes.equals("03")){
+                mes = "Marzo";
+            }else if(mes.equals("04")){
+                mes = "Abril";
+            }else if(mes.equals("05")){
+                mes = "Mayo";
+            }else if(mes.equals("06")){
+                mes = "Junio";
+            }else if(mes.equals("07")){
+                mes = "Julio";
+            }else if(mes.equals("08")){
+                mes = "Agosto";
+            }else if(mes.equals("09")){
+                mes = "Septiembre";
+            }else if(mes.equals("10")){
+                mes = "Octubre";
+            }else if(mes.equals("11")){
+                mes = "Noviembre";
+            }else if(mes.equals("12")){
+                mes = "Diciembre";
             }
-            c.Ejecutar("INSERT INTO librodiario ( n_libro , Periodo ) values ( '" + (ultimo) + "','" + txtPeriodo.getText() + "')");
-            //cerramos la ventana actual
-            this.setVisible(false);
-            this.dispose();
-            Principal p = new Principal();
-            p.setVisible(true);
-            p.setLocationRelativeTo(null);
-            Libro l = new Libro();
-            l.setAnterior(ultimo);
+            
+             //segunda fecha
+            java.util.Date date1 = jDateChooser2.getDate();
+
+            long d1 = date1.getTime();
+            java.sql.Date fecha1 = new Date(d1);
+            
+            //pasaremos el mes a letras
+            String anio1 = "";
+            anio1 += String.valueOf(fecha1).charAt(0);
+            anio1 += String.valueOf(fecha1).charAt(1);
+            anio1 += String.valueOf(fecha1).charAt(2);
+            anio1 += String.valueOf(fecha1).charAt(3);
+            String mes1 = "";
+            mes1 += String.valueOf(fecha1).charAt(5);
+            mes1 += String.valueOf(fecha1).charAt(6);
+            String dia1 = "";
+            dia1 += String.valueOf(fecha1).charAt(8);
+            dia1 += String.valueOf(fecha1).charAt(9);
+            if(mes1.equals("01")){
+                mes1 = "Enero";
+            }else if(mes1.equals("02")){
+                mes1 = "Febrero";
+            }else if(mes1.equals("03")){
+                mes1 = "Marzo";
+            }else if(mes1.equals("04")){
+                mes1 = "Abril";
+            }else if(mes1.equals("05")){
+                mes1 = "Mayo";
+            }else if(mes1.equals("06")){
+                mes1 = "Junio";
+            }else if(mes1.equals("07")){
+                mes1 = "Julio";
+            }else if(mes1.equals("08")){
+                mes1 = "Agosto";
+            }else if(mes1.equals("09")){
+                mes1 = "Septiembre";
+            }else if(mes1.equals("10")){
+                mes1 = "Octubre";
+            }else if(mes1.equals("11")){
+                mes1 = "Noviembre";
+            }else if(mes1.equals("12")){
+                mes1 = "Diciembre";
+            }
+            String fechaTotal = "Del " + dia + " de " + mes + " de " + anio + " Al "+ dia1 + " de " + mes1 + " de " + anio1 ;
+            
+            
+             int ultimo = 1;
+
+             Conexion c = new Conexion();
+             ResultSet rs = c.Consulta("SELECT n_libro FROM `librodiario` ORDER BY `n_libro` DESC LIMIT 1 ", c.getConexion());
+             try {
+             if (rs.next()) {
+             ultimo = Integer.parseInt(rs.getString("n_libro")) + 1;
+             } else {
+             ultimo = 1;
+             }
+             rs.close();
+             c.close();
+             } catch (SQLException ex) {
+             Logger.getLogger(NuevoLibro.class.getName()).log(Level.SEVERE, null, ex);
+             }
+             c.Ejecutar("INSERT INTO librodiario ( n_libro , Periodo ) values ( '" + (ultimo) + "','" + fechaTotal + "')");
+             //cerramos la ventana actual
+             this.setVisible(false);
+             this.dispose();
+             Principal p = new Principal();
+             p.setVisible(true);
+             p.setLocationRelativeTo(null);
+             Libro l = new Libro();
+             l.setAnterior(ultimo);
+             
         } else {
-            JOptionPane.showMessageDialog(null, "Periodo invalido");
+            JOptionPane.showMessageDialog(null, "LA FECHA NO PUEDE ESTAR VACIA");
         }
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -222,8 +335,11 @@ public class NuevoLibro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton jButton1;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtPeriodo;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
