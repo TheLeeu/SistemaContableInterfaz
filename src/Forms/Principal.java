@@ -7,7 +7,13 @@ package Forms;
 
 import Modelo.Conexion;
 import Modelo.Libro;
+import Modelo.ReporteDiario;
+import Modelo.ReporteMayor;
 import interfas.Animacion;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -16,13 +22,28 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -57,7 +78,7 @@ public class Principal extends javax.swing.JFrame {
             ResultSet rs = c.Consulta("SELECT n_libro FROM `librodiario` ", c.getConexion());
             try {
                 while (rs.next()) {
-                    
+
                     cuantosLibrosHay++;
                     elLibro = Integer.parseInt(rs.getString("n_libro"));
                     if (elLibro < menor) {
@@ -80,7 +101,7 @@ public class Principal extends javax.swing.JFrame {
         } else if (l.getAnterior() >= 1) {
             jSpinner1.setValue(l.getAnterior());
         }
-        System.out.println("el numero menor es: "+ menor);
+        System.out.println("el numero menor es: " + menor);
         /*------------Todo este codigo ira en una funcion-------------*/
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnCerrar, "src/Imagenes/multiply.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnMinimizar, "src/Imagenes/subtraction.png");
@@ -148,12 +169,14 @@ public class Principal extends javax.swing.JFrame {
         lblPeriodo1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        btnReporteLibroDiario = new javax.swing.JButton();
         PanelLibroMayor = new javax.swing.JPanel();
         AbrirNav7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         AbrirNav8 = new javax.swing.JLabel();
         btnActualizarMyr = new javax.swing.JLabel();
+        btnReporteMayor = new javax.swing.JButton();
         PanelBalanceComprobacion = new javax.swing.JPanel();
         AbrirNav9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -447,6 +470,14 @@ public class Principal extends javax.swing.JFrame {
         jTextField2.setText("jTextField2");
         PanelLibroDiario.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 470, 140, 30));
 
+        btnReporteLibroDiario.setText("Reportes");
+        btnReporteLibroDiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteLibroDiarioActionPerformed(evt);
+            }
+        });
+        PanelLibroDiario.add(btnReporteLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, -1, -1));
+
         getContentPane().add(PanelLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
         PanelLibroMayor.setBackground(new java.awt.Color(105, 171, 165));
@@ -487,6 +518,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         PanelLibroMayor.add(btnActualizarMyr, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 50, 50));
+
+        btnReporteMayor.setText("Reporte");
+        btnReporteMayor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteMayorActionPerformed(evt);
+            }
+        });
+        PanelLibroMayor.add(btnReporteMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
 
         getContentPane().add(PanelLibroMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, -1, 530));
 
@@ -1048,6 +1087,69 @@ public class Principal extends javax.swing.JFrame {
         jSpinner1.setValue(a - 1);
 // TODO add your handling code here:
     }//GEN-LAST:event_btnElimLibroMouseClicked
+
+    private void btnReporteLibroDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteLibroDiarioActionPerformed
+
+        List lista = new ArrayList();
+        ReporteDiario rd = null;
+        for (int i = 0; i < TableMostrarPartidas.getRowCount() + 1; i++) {
+            //System.out.println(TableMostrarPartidas.getValueAt(i, 2).toString().substring(0, 2));
+
+            if (i < TableMostrarPartidas.getRowCount()) {
+                if (TableMostrarPartidas.getValueAt(i, 2).toString().substring(0, 4).startsWith("Part") || TableMostrarPartidas.getValueAt(i, 2).toString().substring(0, 2).startsWith("C/")) {
+                    rd = new ReporteDiario(TableMostrarPartidas.getValueAt(i, 0).toString(), TableMostrarPartidas.getValueAt(i, 1).toString(), TableMostrarPartidas.getValueAt(i, 2).toString(), TableMostrarPartidas.getValueAt(i, 3).toString(), TableMostrarPartidas.getValueAt(i, 4).toString());
+
+                } else {
+                    rd = new ReporteDiario(TableMostrarPartidas.getValueAt(i, 0).toString(), TableMostrarPartidas.getValueAt(i, 1).toString(), TableMostrarPartidas.getValueAt(i, 2).toString(), "$ " + TableMostrarPartidas.getValueAt(i, 3).toString(), "$ " + TableMostrarPartidas.getValueAt(i, 4).toString());
+                }
+            } else {
+                rd = new ReporteDiario("", "", "TOTALES", "$ " + jTextField1.getText().toString(), "$ " + jTextField2.getText().toString());
+
+            }
+
+            lista.add(rd);
+        }
+
+        JasperReport reporte = null;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroDiario.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_btnReporteLibroDiarioActionPerformed
+
+    private void btnReporteMayorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMayorActionPerformed
+        List lista = new ArrayList();
+        ReporteMayor rm;
+        for (int i = 0; i < jTable1.getRowCount(); i++) {
+            //System.out.println(TableMostrarPartidas.getValueAt(i, 2).toString().substring(0, 2));
+            if (jTable1.getValueAt(i, 0).toString() == "") {
+                rm = new ReporteMayor(jTable1.getValueAt(i, 0).toString(), jTable1.getValueAt(i, 1).toString(), jTable1.getValueAt(i, 2).toString(), jTable1.getValueAt(i, 3).toString(), jTable1.getValueAt(i, 4).toString());
+
+            } else {
+                rm = new ReporteMayor(jTable1.getValueAt(i, 0).toString(), jTable1.getValueAt(i, 1).toString(), "$ " + jTable1.getValueAt(i, 2).toString(), "$ " + jTable1.getValueAt(i, 3).toString(), "$ " + jTable1.getValueAt(i, 4).toString());
+            }
+            lista.add(rm);
+        }
+
+        JasperReport reporte = null;
+
+        try {
+            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroMayor.jasper"));
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, new JRBeanCollectionDataSource(lista));
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+        } catch (JRException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteMayorActionPerformed
 
     /*fin botones de chepe*/
     public void Retroceder() {
@@ -1935,6 +2037,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel btnModificar;
+    private javax.swing.JButton btnReporteLibroDiario;
+    private javax.swing.JButton btnReporteMayor;
     private javax.swing.JLabel btnSiguiente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

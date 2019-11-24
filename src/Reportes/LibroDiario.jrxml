@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59d34a92-21ce-4b4d-853a-fb68d0934a8e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="codigo" class="java.lang.String"/>
+	<field name="cuenta" class="java.lang.String"/>
+	<field name="debe" class="java.lang.String"/>
+	<field name="haber" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="73" height="79" uuid="628ad83c-c569-4ae7-bc38-947234446f6e"/>
+				<imageExpression><![CDATA["C:\\Users\\Antonio Aranda\\Downloads\\WhatsApp Image 2019-10-17 at 18.06.17.jpeg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="73" y="0" width="482" height="20" uuid="081ab338-4d0a-4a53-a1bf-ae3f614811c9"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FERRETERIA TAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="73" y="20" width="482" height="20" uuid="d0972335-4b2b-44c4-994e-8926d9a76534"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIBRO DIARIO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="100" height="20" uuid="1a781538-7489-4099-a4cc-4dd51efc965a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FECHA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="2" width="59" height="20" uuid="6c7cbed6-9334-4d59-b338-a6dd63af471a"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="159" y="2" width="196" height="20" uuid="a661b826-7c43-4613-b80c-f9d0e1e1a853"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="404" y="2" width="62" height="20" uuid="da9f7c04-b4e9-44fb-91b5-2c30aff30e70"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="2" width="62" height="20" uuid="16d0fe52-8586-4dbe-83b3-0de3ceda31e2"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="45d6c900-e1a4-44d6-91b7-fd7d45fd2892"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="59" height="20" uuid="eb715ffb-176e-482b-948f-37fa8cc7dc91"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{codigo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="1" width="176" height="20" uuid="c6070c05-6f8c-414d-8dc2-bb3be1daa83c"/>
+				<textFieldExpression><![CDATA[$F{cuenta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="404" y="0" width="62" height="20" uuid="5ee4ecda-16fe-404b-98fb-d283fb444ca8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{debe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="62" height="20" uuid="82de35c4-4413-4d1c-9c5d-22e16da47143"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="200" y="0" width="80" height="20" uuid="58b7cf09-f31d-4335-91f2-b93df0192cf7"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="280" y="0" width="40" height="20" uuid="9bbe1e09-a61a-4a0f-a865-a07c6906504c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
