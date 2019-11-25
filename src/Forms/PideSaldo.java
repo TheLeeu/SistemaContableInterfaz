@@ -133,7 +133,7 @@ public class PideSaldo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // ACEPTAR
-        if (!jTextField1.getText().toString().isEmpty() && !jTextField2.getText().toString().isEmpty() && !jTextField3.getDateFormatString().isEmpty()) {
+        if (!jTextField1.getText().toString().isEmpty() && !jTextField2.getText().toString().isEmpty() && jTextField3.getDate() != null) {
             plan.setSaldo(jTextField1.getText().toString());//guardamos el saldo
             plan.setConcepto(jTextField2.getText().toString());//guardamos concepto
             

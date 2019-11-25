@@ -559,7 +559,7 @@ public class AgregarPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAvanzadoMouseClicked
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-
+        plan.setUsar(false);
         this.dispose();
 
 // TODO add your handling code here:
@@ -845,12 +845,13 @@ public class AgregarPartida extends javax.swing.JFrame {
         if (btn_debe.isSelected() || btn_haber.isSelected()) {
             DH_seleccionado = true;
         }
-        Date date = txtFecha.getDate();
-        long d = date.getTime();
-        java.sql.Date fecha = new java.sql.Date(d);
-        String Fecha = fecha.toString();
-        plan.setFecha(fecha.toString());
-        if ((!txtNPartida.getText().toString().isEmpty()) && (!Fecha.toString().isEmpty()) && (!txtSaldo.getText().toString().isEmpty()) && (DH_seleccionado) && (!txtConcepto.getText().toString().isEmpty()) && cbxLista.getSelectedItem() != "-SELECCIONE CUENTA-") {
+
+        if ((txtFecha.getDate() != null) && (!txtNPartida.getText().toString().isEmpty())  && (!txtSaldo.getText().toString().isEmpty()) && (DH_seleccionado) && (!txtConcepto.getText().toString().isEmpty()) && cbxLista.getSelectedItem() != "-SELECCIONE CUENTA-") {
+            Date date = txtFecha.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            String Fecha = fecha.toString();
+            plan.setFecha(fecha.toString());
             if (Double.parseDouble(txtSaldo.getText().toString()) > 0.0) {//saldo mayor a 0.0
                 DecimalFormat formato = new DecimalFormat("#.00");
                 DefaultTableModel _Modelo = (DefaultTableModel) tablePartidaPreview.getModel();

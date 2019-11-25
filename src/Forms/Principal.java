@@ -1421,9 +1421,10 @@ public class Principal extends javax.swing.JFrame {
 
         if (iva) {
             btnAjuste.setVisible(false);
+            AbrirNav6.setVisible(false);
         } else {
             btnAjuste.setVisible(true);
-
+            AbrirNav6.setVisible(true);
         }
     }
 
