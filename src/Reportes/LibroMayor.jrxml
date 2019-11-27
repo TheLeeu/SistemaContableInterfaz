@@ -14,10 +14,6 @@
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="0" y="0" width="73" height="79" uuid="fe85ff27-faf9-47c9-a3f2-86914ae586e2"/>
-				<imageExpression><![CDATA["C:\\Users\\Antonio Aranda\\Downloads\\WhatsApp Image 2019-10-17 at 18.06.17.jpeg"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement x="73" y="0" width="482" height="33" uuid="8f0042e1-f309-49c5-8688-ef8bb39ea786"/>
 				<textElement textAlignment="Center">
@@ -30,8 +26,12 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$P!{periodo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{periodo}]]></textFieldExpression>
 			</textField>
+			<image>
+				<reportElement x="0" y="0" width="73" height="79" uuid="69e344f9-62f2-4355-afa6-925c14ce57c4"/>
+				<imageExpression><![CDATA["src\\Reportes\\logo.jpeg"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>

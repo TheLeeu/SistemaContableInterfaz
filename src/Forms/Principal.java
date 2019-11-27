@@ -16,6 +16,7 @@ import interfas.Animacion;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URL;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -34,6 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
@@ -108,8 +110,8 @@ public class Principal extends javax.swing.JFrame {
         /*------------Todo este codigo ira en una funcion-------------*/
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnCerrar, "src/Imagenes/multiply.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnMinimizar, "src/Imagenes/subtraction.png");
-        rsscalelabel.RSScaleLabel.setScaleLabel(this.btnAnterior, "src/Imagenes/left-arrow.png");
-        rsscalelabel.RSScaleLabel.setScaleLabel(this.btnSiguiente, "src/Imagenes/right-arrow.png");
+        //rsscalelabel.RSScaleLabel.setScaleLabel(this.btnAnterior, "src/Imagenes/left-arrow.png");
+        //rsscalelabel.RSScaleLabel.setScaleLabel(this.btnSiguiente, "src/Imagenes/right-arrow.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnAgregarPartida, "src/Imagenes/plus.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnEditar, "src/Imagenes/equal.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnEliminar, "src/Imagenes/eliminar.png");
@@ -150,9 +152,9 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelNav = new javax.swing.JPanel();
-        btnSiguiente = new javax.swing.JLabel();
-        btnAnterior = new javax.swing.JLabel();
         AbrirNav = new javax.swing.JLabel();
+        btnAnterior = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
         PanelLibroDiario = new javax.swing.JPanel();
         PanelEditPartida = new javax.swing.JPanel();
         btnAjuste = new javax.swing.JLabel();
@@ -189,14 +191,14 @@ public class Principal extends javax.swing.JFrame {
         AbrirNav11 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnReporteComprobacion = new javax.swing.JButton();
         PanelEstadoResultados = new javax.swing.JPanel();
         AbrirNav12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         AbrirNav13 = new javax.swing.JLabel();
         btnActualizarEstRes = new javax.swing.JLabel();
-        btnReporteResultado = new javax.swing.JButton();
+        btnReporteResultados = new javax.swing.JButton();
         PanelBalanceGeneral = new javax.swing.JPanel();
         lblBG = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -239,20 +241,7 @@ public class Principal extends javax.swing.JFrame {
                 PanelNavMouseExited(evt);
             }
         });
-
-        btnSiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSiguiente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnSiguienteMouseClicked(evt);
-            }
-        });
-
-        btnAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAnterior.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnAnteriorMouseClicked(evt);
-            }
-        });
+        PanelNav.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         AbrirNav.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         AbrirNav.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -262,37 +251,35 @@ public class Principal extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 AbrirNavMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                AbrirNavMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AbrirNavMouseExited(evt);
+            }
         });
+        PanelNav.add(AbrirNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(33, 107, -1, 32));
 
-        javax.swing.GroupLayout PanelNavLayout = new javax.swing.GroupLayout(PanelNav);
-        PanelNav.setLayout(PanelNavLayout);
-        PanelNavLayout.setHorizontalGroup(
-            PanelNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNavLayout.createSequentialGroup()
-                .addGroup(PanelNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelNavLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(btnAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelNavLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(AbrirNav)))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        PanelNavLayout.setVerticalGroup(
-            PanelNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelNavLayout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(PanelNavLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAnterior, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(28, 28, 28)
-                .addComponent(AbrirNav, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        btnAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/left-arrow-60x60.png"))); // NOI18N
+        btnAnterior.setPreferredSize(new java.awt.Dimension(70, 70));
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+        PanelNav.add(btnAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
-        getContentPane().add(PanelNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, -100, 180, -1));
+        btnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/right-arrow-60x60.png"))); // NOI18N
+        btnSiguiente.setPreferredSize(new java.awt.Dimension(70, 70));
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
+        PanelNav.add(btnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, -1, -1));
+
+        getContentPane().add(PanelNav, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, -100, 180, 150));
+        PanelNav.getAccessibleContext().setAccessibleDescription("");
 
         PanelLibroDiario.setBackground(new java.awt.Color(81, 110, 128));
         PanelLibroDiario.setPreferredSize(new java.awt.Dimension(920, 540));
@@ -422,7 +409,7 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        PanelLibroDiario.add(PanelEditPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 90, 280, 330));
+        PanelLibroDiario.add(PanelEditPartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 120, 280, 330));
 
         TableMostrarPartidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -476,13 +463,16 @@ public class Principal extends javax.swing.JFrame {
         jTextField2.setText("jTextField2");
         PanelLibroDiario.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 470, 140, 30));
 
-        btnReporteLibroDiario.setText("Reportes");
+        btnReporteLibroDiario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impre.png"))); // NOI18N
+        btnReporteLibroDiario.setBorder(null);
+        btnReporteLibroDiario.setOpaque(false);
+        btnReporteLibroDiario.setPreferredSize(new java.awt.Dimension(70, 70));
         btnReporteLibroDiario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteLibroDiarioActionPerformed(evt);
             }
         });
-        PanelLibroDiario.add(btnReporteLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 480, -1, -1));
+        PanelLibroDiario.add(btnReporteLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, -1, -1));
 
         getContentPane().add(PanelLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
@@ -525,13 +515,16 @@ public class Principal extends javax.swing.JFrame {
         });
         PanelLibroMayor.add(btnActualizarMyr, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 50, 50));
 
-        btnReporteMayor.setText("Reporte");
+        btnReporteMayor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impre.png"))); // NOI18N
+        btnReporteMayor.setBorder(null);
+        btnReporteMayor.setOpaque(false);
+        btnReporteMayor.setPreferredSize(new java.awt.Dimension(70, 70));
         btnReporteMayor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteMayorActionPerformed(evt);
             }
         });
-        PanelLibroMayor.add(btnReporteMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
+        PanelLibroMayor.add(btnReporteMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 130, -1, -1));
 
         getContentPane().add(PanelLibroMayor, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 50, -1, 530));
 
@@ -586,13 +579,16 @@ public class Principal extends javax.swing.JFrame {
         jTextField3.setBackground(new java.awt.Color(241, 237, 225));
         PanelBalanceComprobacion.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 160, 20));
 
-        jButton1.setText("Reportes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteComprobacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impre.png"))); // NOI18N
+        btnReporteComprobacion.setBorder(null);
+        btnReporteComprobacion.setOpaque(false);
+        btnReporteComprobacion.setPreferredSize(new java.awt.Dimension(70, 70));
+        btnReporteComprobacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnReporteComprobacionActionPerformed(evt);
             }
         });
-        PanelBalanceComprobacion.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
+        PanelBalanceComprobacion.add(btnReporteComprobacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 130, -1, -1));
 
         getContentPane().add(PanelBalanceComprobacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(1840, 50, -1, 530));
 
@@ -635,13 +631,16 @@ public class Principal extends javax.swing.JFrame {
         });
         PanelEstadoResultados.add(btnActualizarEstRes, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 50, 50));
 
-        btnReporteResultado.setText("Reporte");
-        btnReporteResultado.addActionListener(new java.awt.event.ActionListener() {
+        btnReporteResultados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impre.png"))); // NOI18N
+        btnReporteResultados.setBorder(null);
+        btnReporteResultados.setOpaque(false);
+        btnReporteResultados.setPreferredSize(new java.awt.Dimension(70, 70));
+        btnReporteResultados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReporteResultadoActionPerformed(evt);
+                btnReporteResultadosActionPerformed(evt);
             }
         });
-        PanelEstadoResultados.add(btnReporteResultado, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 490, -1, -1));
+        PanelEstadoResultados.add(btnReporteResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 110, -1, -1));
 
         getContentPane().add(PanelEstadoResultados, new org.netbeans.lib.awtextra.AbsoluteConstraints(2760, 50, -1, 530));
 
@@ -720,13 +719,16 @@ public class Principal extends javax.swing.JFrame {
         txtBG3.setBackground(new java.awt.Color(241, 237, 225));
         PanelBalanceGeneral.add(txtBG3, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 230, 70, 20));
 
-        btnReporteGeneral.setText("Reporte");
+        btnReporteGeneral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impre.png"))); // NOI18N
+        btnReporteGeneral.setBorder(null);
+        btnReporteGeneral.setOpaque(false);
+        btnReporteGeneral.setPreferredSize(new java.awt.Dimension(70, 70));
         btnReporteGeneral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteGeneralActionPerformed(evt);
             }
         });
-        PanelBalanceGeneral.add(btnReporteGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 100, -1, -1));
+        PanelBalanceGeneral.add(btnReporteGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 270, -1, -1));
 
         getContentPane().add(PanelBalanceGeneral, new org.netbeans.lib.awtextra.AbsoluteConstraints(3680, 50, -1, 530));
 
@@ -816,53 +818,6 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(ICONIFIED);
 
     }//GEN-LAST:event_btnMinimizarMouseClicked
-
-    /*Inicio de panel de navegacion*/
-
-    private void btnSiguienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSiguienteMouseClicked
-
-        if (PanelBalanceGeneral.getX() != 0) { // Si aun no hemos llegado al ultimo panel
-
-            Contador++; //aumentamos el contador de paneles
-            Avanzar();
-
-            if (PanelBalanceGeneral.getX() == 0) {
-                PanelActual = Paneles[1];
-            }
-
-            if (Contador - 1 >= 0) {
-
-                btnAnterior.setToolTipText(Paneles[Contador - 1]); //pondremos el texto con el panel anterior
-                btnSiguiente.setToolTipText(Paneles[Contador + 1]); //pondremos el texto con el panel siguiente
-
-            }
-
-        } //si ya llegamos al ultimo panel no hacemos nada
-
-
-    }//GEN-LAST:event_btnSiguienteMouseClicked
-
-    private void btnAnteriorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAnteriorMouseClicked
-
-        if (PanelLibroDiario.getX() != 0) { //si NO estamos en el libro diario
-
-            Contador--;    //reducimos el contador de paneles
-            Retroceder();
-
-            if (PanelLibroDiario.getX() == 0) {
-                PanelActual = Paneles[0];
-            }
-
-            if (Contador + 1 < Paneles.length) {
-
-                btnAnterior.setToolTipText(Paneles[Contador - 1]);
-                btnSiguiente.setToolTipText(Paneles[Contador + 1]);
-
-            }
-
-        } //si estamos en el libro diario, no se retrocedera mas
-
-    }//GEN-LAST:event_btnAnteriorMouseClicked
 
 
     private void PanelNavMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PanelNavMouseEntered
@@ -1144,9 +1099,10 @@ public class Principal extends javax.swing.JFrame {
 
         Map parametro = new HashMap();
         parametro.put("periodo", lblPeriodo.getText().toString());
+        String path = "src\\Reportes\\LibroDiario.jasper";
         
         try {
-            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroDiario.jasper"));
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1156,6 +1112,68 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btnReporteLibroDiarioActionPerformed
+
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+
+        if (PanelLibroDiario.getX() != 0) { //si NO estamos en el libro diario
+
+            btnAnterior.setEnabled(false);
+            btnSiguiente.setEnabled(false);
+            Contador--;    //reducimos el contador de paneles
+            Retroceder(btnSiguiente, btnAnterior);
+
+            if (PanelLibroDiario.getX() == 0) {
+                PanelActual = Paneles[0];
+            }
+
+            if (Contador + 1 < Paneles.length) {
+
+                btnAnterior.setToolTipText(Paneles[Contador - 1]);
+                btnSiguiente.setToolTipText(Paneles[Contador + 1]);
+
+            }
+
+        } //si estamos en el libro diario, no se retrocedera mas    
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+
+        if (PanelBalanceGeneral.getX() != 0) { // Si aun no hemos llegado al ultimo panel
+
+            btnAnterior.setEnabled(false);
+            btnSiguiente.setEnabled(false);
+            Contador++; //aumentamos el contador de paneles
+            Avanzar(btnSiguiente, btnAnterior);
+
+            if (PanelBalanceGeneral.getX() == 0) {
+                PanelActual = Paneles[1];
+            }
+
+            if (Contador - 1 >= 0) {
+
+                btnAnterior.setToolTipText(Paneles[Contador - 1]); //pondremos el texto con el panel anterior
+                btnSiguiente.setToolTipText(Paneles[Contador + 1]); //pondremos el texto con el panel siguiente
+
+            }
+
+        } //si ya llegamos al ultimo panel no hacemos nada    
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnSiguienteActionPerformed
+
+    private void AbrirNavMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AbrirNavMouseEntered
+
+        anim.jPanelYDown(-100, -80, 2, 1, PanelNav);
+// TODO add your handling code here:
+    }//GEN-LAST:event_AbrirNavMouseEntered
+
+    private void AbrirNavMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AbrirNavMouseExited
+
+        anim.jPanelYDown(-80, -100, 2, 1, PanelNav);
+// TODO add your handling code here:
+    }//GEN-LAST:event_AbrirNavMouseExited
 
     private void btnReporteMayorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteMayorActionPerformed
         List lista = new ArrayList();
@@ -1174,8 +1192,12 @@ public class Principal extends javax.swing.JFrame {
         JasperReport reporte = null;
         Map parametro = new HashMap();
         parametro.put("periodo", lblPeriodo.getText().toString());
+        String path = "src\\Reportes\\LibroMayor.jasper";
+        
+        
+            
         try {
-            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/LibroMayor.jasper"));
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1183,9 +1205,12 @@ public class Principal extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+// TODO add your handling code here:
     }//GEN-LAST:event_btnReporteMayorActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnReporteComprobacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteComprobacionActionPerformed
+
         List lista = new ArrayList();
         ReporteComprobacion rc = null;
         for (int i = 0; i < jTable2.getRowCount() + 1; i++) {
@@ -1201,8 +1226,12 @@ public class Principal extends javax.swing.JFrame {
         JasperReport reporte = null;
         Map parametro = new HashMap();
         parametro.put("periodo", lblPeriodo.getText().toString());
+        String path = "src\\Reportes\\BalanceComprobacion.jasper";
+        
+        
+            
         try {
-            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceComprobacion.jasper"));
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1210,9 +1239,11 @@ public class Principal extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void btnReporteResultadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteResultadoActionPerformed
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteComprobacionActionPerformed
+
+    private void btnReporteResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteResultadosActionPerformed
         List lista = new ArrayList();
         ReporteEstadoResultados re = null;
         for (int i = 0; i < jTable3.getRowCount(); i++) {
@@ -1225,8 +1256,12 @@ public class Principal extends javax.swing.JFrame {
         JasperReport reporte = null;
         Map parametro = new HashMap();
         parametro.put("periodo", lblPeriodo.getText().toString());
+        String path = "src\\Reportes\\EstadoResultados.jasper";
+        
+        
+            
         try {
-            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/EstadoResultados.jasper"));
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1234,7 +1269,9 @@ public class Principal extends javax.swing.JFrame {
         } catch (JRException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnReporteResultadoActionPerformed
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnReporteResultadosActionPerformed
 
     private void btnReporteGeneralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteGeneralActionPerformed
         List lista = new ArrayList();
@@ -1258,10 +1295,10 @@ public class Principal extends javax.swing.JFrame {
             for (int i = 0; i < jTable4.getRowCount(); i++) {
                 if (i < jTable5.getRowCount()) {
                     rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), jTable5.getValueAt(i, 0).toString(), jTable5.getValueAt(i, 1).toString());
-                }  else if(i < jTable4.getRowCount()){
+                } else if (i < jTable4.getRowCount()) {
                     rb = new ReporteBalanceGeneral(jTable4.getValueAt(i, 0).toString(), jTable4.getValueAt(i, 1).toString(), "", "");
 
-                }else {
+                } else {
                     rb = new ReporteBalanceGeneral("TOTAL", jTextField8.getText().toString().toString(), "TOTAL", jTextField9.getText().toString());
 
                 }
@@ -1282,8 +1319,12 @@ public class Principal extends javax.swing.JFrame {
         JasperReport reporte = null;
         Map parametro = new HashMap();
         parametro.put("parametro", lblPeriodo.getText().toString());
+        String path = "src\\Reportes\\BalanceGenera.jasper";
+        
+        
+            
         try {
-            reporte = (JasperReport) JRLoader.loadObject(getClass().getResource("/Reportes/BalanceGenera.jasper"));
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, parametro, new JRBeanCollectionDataSource(lista));
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -1294,27 +1335,27 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
     /*fin botones de chepe*/
-    public void Retroceder() {
+    public void Retroceder(JButton btn1, JButton btn2) {
 
         //movemos todos los paneles 920 pixeles (ancho de la ventana) asi -> -> -> lo que nos dara la sensacion de ir retrocediendo
         //arriba validamos que si se llego al libro diario no se retroceda mas
-        anim.jPanelXRight(PanelLibroMayor.getX(), PanelLibroMayor.getX() + 920, 1, 5, PanelLibroMayor);
-        anim.jPanelXRight(PanelLibroDiario.getX(), PanelLibroDiario.getX() + 920, 1, 5, PanelLibroDiario);
-        anim.jPanelXRight(PanelBalanceComprobacion.getX(), PanelBalanceComprobacion.getX() + 920, 1, 5, PanelBalanceComprobacion);
-        anim.jPanelXRight(PanelEstadoResultados.getX(), PanelEstadoResultados.getX() + 920, 1, 5, PanelEstadoResultados);
-        anim.jPanelXRight(PanelBalanceGeneral.getX(), PanelBalanceGeneral.getX() + 920, 1, 5, PanelBalanceGeneral);
+        anim.NavegadorXRight(PanelLibroMayor.getX(), PanelLibroMayor.getX() + 920, 1, 5, PanelLibroMayor, btn1, btn2);
+        anim.NavegadorXRight(PanelLibroDiario.getX(), PanelLibroDiario.getX() + 920, 1, 5, PanelLibroDiario, btn1, btn2);
+        anim.NavegadorXRight(PanelBalanceComprobacion.getX(), PanelBalanceComprobacion.getX() + 920, 1, 5, PanelBalanceComprobacion, btn1, btn2);
+        anim.NavegadorXRight(PanelEstadoResultados.getX(), PanelEstadoResultados.getX() + 920, 1, 5, PanelEstadoResultados, btn1, btn2);
+        anim.NavegadorXRight(PanelBalanceGeneral.getX(), PanelBalanceGeneral.getX() + 920, 1, 5, PanelBalanceGeneral, btn1, btn2);
 
     }
 
-    public void Avanzar() {
+    public void Avanzar(JButton btn1, JButton btn2) {
 
         //Movemos todos los paneles 920 pixeles asi <- <- <- lo que nos dara la sensacion de ir avanzando
         //arriba validamos que si se llego al balance general no sigamos avanzando
-        anim.jPanelXLeft(PanelLibroMayor.getX(), PanelLibroMayor.getX() - 920, 1, 5, PanelLibroMayor);
-        anim.jPanelXLeft(PanelLibroDiario.getX(), PanelLibroDiario.getX() - 920, 1, 5, PanelLibroDiario);
-        anim.jPanelXLeft(PanelBalanceComprobacion.getX(), PanelBalanceComprobacion.getX() - 920, 1, 5, PanelBalanceComprobacion);
-        anim.jPanelXLeft(PanelEstadoResultados.getX(), PanelEstadoResultados.getX() - 920, 1, 5, PanelEstadoResultados);
-        anim.jPanelXLeft(PanelBalanceGeneral.getX(), PanelBalanceGeneral.getX() - 920, 1, 5, PanelBalanceGeneral);
+        anim.NavegadorXLeft(PanelLibroMayor.getX(), PanelLibroMayor.getX() - 920, 1, 5, PanelLibroMayor, btn1, btn2);
+        anim.NavegadorXLeft(PanelLibroDiario.getX(), PanelLibroDiario.getX() - 920, 1, 5, PanelLibroDiario, btn1, btn2);
+        anim.NavegadorXLeft(PanelBalanceComprobacion.getX(), PanelBalanceComprobacion.getX() - 920, 1, 5, PanelBalanceComprobacion, btn1, btn2);
+        anim.NavegadorXLeft(PanelEstadoResultados.getX(), PanelEstadoResultados.getX() - 920, 1, 5, PanelEstadoResultados, btn1, btn2);
+        anim.NavegadorXLeft(PanelBalanceGeneral.getX(), PanelBalanceGeneral.getX() - 920, 1, 5, PanelBalanceGeneral, btn1, btn2);
 
     }
 
@@ -1955,12 +1996,10 @@ public class Principal extends javax.swing.JFrame {
         }
         modelo.addRow(new Object[]{"Gastos de Operacion", formato.format(gastos)});
         modelo.addRow(new Object[]{"Utilidad de Operacion", formato.format((ingresos - costos) - gastos)});
-        
-        
-        
+
         modelo.addRow(new Object[]{"Reserva Legal", formato.format(((ingresos - costos) - gastos) * 0.07)});
         modelo.addRow(new Object[]{"Utilidad Antes de Impuestos", formato.format(((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07)});
-        
+
         if (ingresos > 150000) {
             modelo.addRow(new Object[]{"Impuestos por Pagar", formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.3)});
             impuestos = Double.parseDouble(formato.format((((ingresos - costos) - gastos) - ((ingresos - costos) - gastos) * 0.07) * 0.3));
@@ -2175,19 +2214,19 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel btnActualizarMyr;
     private javax.swing.JLabel btnAgregarPartida;
     private javax.swing.JLabel btnAjuste;
-    private javax.swing.JLabel btnAnterior;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btnEditar;
     private javax.swing.JLabel btnElimLibro;
     private javax.swing.JLabel btnEliminar;
     private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel btnModificar;
+    private javax.swing.JButton btnReporteComprobacion;
     private javax.swing.JButton btnReporteGeneral;
     private javax.swing.JButton btnReporteLibroDiario;
     private javax.swing.JButton btnReporteMayor;
-    private javax.swing.JButton btnReporteResultado;
-    private javax.swing.JLabel btnSiguiente;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnReporteResultados;
+    private javax.swing.JButton btnSiguiente;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -179,7 +179,7 @@ public class AgregarPartida extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Fecha");
-        PanelDetallePartida.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, -1, -1));
+        PanelDetallePartida.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
@@ -222,7 +222,7 @@ public class AgregarPartida extends javax.swing.JFrame {
             }
         });
         PanelDetallePartida.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 40));
-        PanelDetallePartida.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+        PanelDetallePartida.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, -1, -1));
 
         getContentPane().add(PanelDetallePartida, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 160));
 

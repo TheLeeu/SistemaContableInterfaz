@@ -15,7 +15,7 @@
 		<band height="79" splitType="Stretch">
 			<image>
 				<reportElement x="0" y="0" width="73" height="79" uuid="b2936e3d-e62d-4155-be40-c8c22262e171"/>
-				<imageExpression><![CDATA["C:\\Users\\Antonio Aranda\\Downloads\\WhatsApp Image 2019-10-17 at 18.06.17.jpeg"]]></imageExpression>
+				<imageExpression><![CDATA["logo.jpeg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="73" y="0" width="482" height="33" uuid="defea42a-142c-4dd0-a343-b71f94a7ed36"/>

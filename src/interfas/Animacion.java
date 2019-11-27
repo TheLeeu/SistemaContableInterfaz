@@ -557,4 +557,75 @@ public class Animacion
             }.start();
         }
     }
+    
+    /*Metodos Nuevos*/
+    /*-------- Panel hacia la izquierda ------------*/
+    public void NavegadorXLeft(final int start, final int stop, final int delay, final int increment, final JPanel jScrollPane, final JButton btn, final JButton btn2) 
+    {
+        
+        if (jScrollPane.getX() == start) {
+            new Thread() {
+                @Override
+                public void run() {
+                    if(btn != null && btn2 != null){
+                    btn.setEnabled(false);
+                    btn2.setEnabled(false);}
+                    
+                    while (jScrollPane.getX() > stop) {
+                        for (int i = start; i >= stop; i -= increment) {
+                            try {
+                                Thread.sleep(delay);
+                                jScrollPane.setLocation(i, jScrollPane.getY());
+                            }
+                            catch (InterruptedException e) {
+                                System.out.println("Error Thread Interrupted: " + e);
+                            }
+                        }
+                    }
+                    jScrollPane.setLocation(stop, jScrollPane.getY());
+                    
+                    if(btn != null && btn2 != null){
+                    btn.setEnabled(true);
+                    btn2.setEnabled(true);}
+                    //termino = true;
+                }
+            }.start();
+        }
+        //return termino;
+    }
+    
+    /*Panel hacia derecha*/
+    
+    public void NavegadorXRight(final int start, final int stop, final int delay, final int increment, final JPanel jScrollPane, final JButton btn, final JButton btn2) 
+    {   
+        //termino = false;
+        if (jScrollPane.getX() == start) {
+            new Thread() {
+                @Override
+                public void run() {
+                    if(btn != null && btn2 != null){
+                    btn.setEnabled(false);
+                    btn2.setEnabled(false);}
+                    while (jScrollPane.getX() <= start) {
+                        
+                        for (int i = start; i <= stop; i += increment) {
+                            try {
+                                Thread.sleep(delay);
+                                jScrollPane.setLocation(i, jScrollPane.getY());
+                            }
+                            catch (InterruptedException e) {
+                                System.out.println("Error Thread Interrupted: " + e);
+                            }
+                        }
+                    }
+                    jScrollPane.setLocation(stop, jScrollPane.getY());
+                    if(btn != null && btn2 != null){
+                    btn.setEnabled(true);
+                    btn2.setEnabled(true);}
+                }
+            }.start();
+            
+        }
+        //return termino;
+    }
 }
