@@ -77,7 +77,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         this.setLocationRelativeTo(null);
-
+        this.setSize(920, 580);
         if (l.getAnterior() == 0) {
             Conexion c = new Conexion();
             ResultSet rs = c.Consulta("SELECT n_libro FROM `librodiario` ", c.getConexion());
@@ -121,6 +121,7 @@ public class Principal extends javax.swing.JFrame {
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnActualizarComp, "src/Imagenes/update.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnActualizarEstRes, "src/Imagenes/update.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnActualizarBG, "src/Imagenes/update.png");
+        rsscalelabel.RSScaleLabel.setScaleLabel(this.btnActualizarDiario, "src/Imagenes/update.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(this.btnElimLibro, "src/Imagenes/eliminar.png");
 
         PanelActual = Paneles[1];
@@ -175,6 +176,8 @@ public class Principal extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
         btnReporteLibroDiario = new javax.swing.JButton();
+        btnActualizarDiario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         PanelLibroMayor = new javax.swing.JPanel();
         AbrirNav7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -228,7 +231,6 @@ public class Principal extends javax.swing.JFrame {
         setLocation(new java.awt.Point(0, 0));
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(920, 570));
         setResizable(false);
         setSize(new java.awt.Dimension(920, 570));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -443,13 +445,13 @@ public class Principal extends javax.swing.JFrame {
         lblPeriodo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPeriodo.setText("Libro Diario, del 1 de enero al 31 de diciembre de 2018");
         lblPeriodo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        PanelLibroDiario.add(lblPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 710, -1));
+        PanelLibroDiario.add(lblPeriodo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 720, -1));
 
         AbrirNav2.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         AbrirNav2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AbrirNav2.setText("Agro Ferreteria San Francisco");
         AbrirNav2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        PanelLibroDiario.add(AbrirNav2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 710, -1));
+        PanelLibroDiario.add(AbrirNav2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 710, -1));
 
         lblPeriodo1.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         lblPeriodo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -473,6 +475,18 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         PanelLibroDiario.add(btnReporteLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, -1, -1));
+
+        btnActualizarDiario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarDiario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnActualizarDiarioMouseClicked(evt);
+            }
+        });
+        PanelLibroDiario.add(btnActualizarDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 110, 50, 50));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("LIBRO DIARIO");
+        PanelLibroDiario.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 170, 20));
 
         getContentPane().add(PanelLibroDiario, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
@@ -880,7 +894,7 @@ public class Principal extends javax.swing.JFrame {
             rs1 = con.Consulta("SELECT cuenta.codigo,cuenta.nombre_cuenta, cuenta_partida.Debe, cuenta_partida.Haber FROM cuenta_partida inner JOIN cuenta ON cuenta_partida.cuenta_id = cuenta.id_cuenta inner JOIN partida ON cuenta_partida.partida_id = partida.id_partida WHERE partida.n_partida = '" + idPartida + "' && partida.n_libro = '" + jSpinner1.getValue().toString() + "' ", con.getConexion());
 
             while (rs.next()) {
-                String partida = "Partida " + rs.getString("id_partida");
+                String partida = "Partida " + rs.getString("n_partida");
                 modelo.addRow(new Object[]{rs.getString("fecha"), "", partida, "", ""});
 
                 //hay que mandar la fecha
@@ -1334,6 +1348,10 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnReporteGeneralActionPerformed
 
+    private void btnActualizarDiarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnActualizarDiarioMouseClicked
+        CargandoPartidas(Integer.parseInt(jSpinner1.getValue().toString()));
+    }//GEN-LAST:event_btnActualizarDiarioMouseClicked
+
     /*fin botones de chepe*/
     public void Retroceder(JButton btn1, JButton btn2) {
 
@@ -1626,16 +1644,18 @@ public class Principal extends javax.swing.JFrame {
             Calendar fecha = new GregorianCalendar();
             int anioi = fecha.get(Calendar.YEAR);
             String anio = String.valueOf(anioi);
-            int mesi = fecha.get(Calendar.MONTH);
+            int mesi = fecha.get(Calendar.MONTH) + 1;
+            
             String mes = String.valueOf(mesi);
             int diai = fecha.get(Calendar.DAY_OF_MONTH);
+            String dia = "";
             if (diai < 10) {
-                String dia = "0" + String.valueOf(diai);
+               dia = "0" + String.valueOf(diai);
             } else {
-                String dia = String.valueOf(diai);
+                dia = String.valueOf(diai);
             }
 
-            String fechaS = "2010" + "-" + mes + "-" + "02";
+            String fechaS = anio + "-" + mes + "-" + dia;
             String a = "Ajuste de IVA";
             //insertamos la partida
             DecimalFormat formato = new DecimalFormat("#.00");
@@ -2210,6 +2230,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTable TableMostrarPartidas;
     private javax.swing.JLabel btnActualizarBG;
     private javax.swing.JLabel btnActualizarComp;
+    private javax.swing.JLabel btnActualizarDiario;
     private javax.swing.JLabel btnActualizarEstRes;
     private javax.swing.JLabel btnActualizarMyr;
     private javax.swing.JLabel btnAgregarPartida;
@@ -2227,6 +2248,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnReporteMayor;
     private javax.swing.JButton btnReporteResultados;
     private javax.swing.JButton btnSiguiente;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

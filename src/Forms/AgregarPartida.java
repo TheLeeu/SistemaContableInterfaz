@@ -1193,17 +1193,17 @@ public class AgregarPartida extends javax.swing.JFrame {
                 datos[i][4] = "0";
             }
             //vamos a obtener el ultimo registro de una partida para meter las cuentas ahi
-            Conexion con = new Conexion();
-            ResultSet rs1 = con.Consulta("SELECT id_partida FROM `partida` WHERE n_libro = '" + jSpinner1.getValue().toString() + "' ORDER BY `id_partida` DESC LIMIT 1 ", con.getConexion());
+            /*Conexion con = new Conexion();
+            ResultSet rs1 = con.Consulta("SELECT id_partida FROM `partida` WHERE n_libro = '" + jSpinner1.getValue().toString() + "'  && n_partida = '"++"'", con.getConexion());
             String a = "";
             if (rs1.next()) {
                 a = rs1.getString("id_partida");
             }
-            System.out.println(a);
+            System.out.println(a);*/
             //ejecutamos el query para una cuenta de la partida
             ConInsertar.Ejecutar(
                     "INSERT INTO `cuenta_partida` (`id_cuenta_partida`, `cuenta_id`, `partida_id`, `Debe`, `Haber`) "
-                    + "VALUES (NULL, '" + IdCuenta + "', '" + a + "', '" + datos[i][3] + "', '" + datos[i][4] + "');");
+                    + "VALUES (NULL, '" + IdCuenta + "', '" + Id + "', '" + datos[i][3] + "', '" + datos[i][4] + "');");
 
         }
 
